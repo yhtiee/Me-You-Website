@@ -1,0 +1,169 @@
+/*
+ * Me&u design tokens — transcribed from the app's `constants/tokens.ts`.
+ *
+ * Same rule as the app: no hue is invented here. The site and the app are meant
+ * to feel like one product, so if a value needs to change it changes there first.
+ * What *is* web-only is the type scale's upper end — a 38px display line is a
+ * phone headline, not a desktop one — and those sizes are clamps whose floor is
+ * the app's own number.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --rose: #f0546f;
+  --rose-pressed: #d63c58;
+  --rose-soft: #ffe6ea;
+  --iris: #6e5ac8;
+  --iris-soft: #eeeafb;
+  --amber: #f5a524;
+  --amber-soft: #fff1d6;
+
+  /* People — the whole app runs on this mapping */
+  --you: #f0546f;
+  --partner: #6e5ac8;
+
+  /* Mood */
+  --mood-happy: #f5b93a;
+  --mood-neutral: #a9a2b3;
+  --mood-sad: #7e9bd4;
+  --mood-stressed: #e4795f;
+
+  /* Play accents and wheel fills (white-legible) */
+  --accent-coin: #f5a524;
+  --accent-wheel: #f0546f;
+  --accent-date: #6e5ac8;
+  --accent-picker: #7e9bd4;
+  --accent-trivia: #e4795f;
+  --accent-growth: #3b7f5c;
+
+  /* Surfaces — light */
+  --bg: #fbf8fa;
+  --surface: #ffffff;
+  --sunken: #f4eff4;
+  --text: #221a2b;
+  --text-2: #7b7286;
+  /* Decorative only: 2.4:1 on white, never body copy. */
+  --text-3: #a9a2b3;
+  --border: #ede6ec;
+  --success: #3b7f5c;
+  --danger: #d94a4a;
+
+  /* Tints: a fill and the ink that stays legible on it */
+  --rose-bg: #ffe6ea;  --rose-fg: #a82f46;  --rose-muted: #8a5560;
+  --iris-bg: #eeeafb;  --iris-fg: #3f3161;  --iris-muted: #6b5c8e;
+  --amber-bg: #fff1d6; --amber-fg: #7a4e00; --amber-muted: #8f5a00;
+  --success-bg: #e6f1ea; --success-fg: #2c6146; --success-muted: #4a7a62;
+  --picker-bg: #e7edf9; --picker-fg: #2f4e85;
+  --trivia-bg: #fce8e2; --trivia-fg: #a03b22;
+
+  /* Gradients */
+  --duo: linear-gradient(135deg, #d63c58, #6e5ac8);
+  --wash: linear-gradient(180deg, #fcedf2, #fbf8fa 520px);
+  --play: linear-gradient(135deg, #a35f00, #d63c58 52%, #6e5ac8);
+  --coin: linear-gradient(135deg, #a35f00, #d63c58);
+  --premium: linear-gradient(135deg, #6e5ac8, #3f3161);
+  --brand-cta: linear-gradient(180deg, #f0546f, #d63c58);
+  --xp: linear-gradient(90deg, #f5a524, #f0546f);
+
+  /* Glass — the floating tab bar's recipe, reused for the nav */
+  --scrim: rgba(251, 248, 250, 0.72);
+  --hairline: rgba(34, 26, 43, 0.08);
+
+  /* Shadows: plum- or rose-tinted, never neutral black */
+  --s1: 0 3px 14px rgba(34, 26, 43, 0.05);
+  --s2: 0 4px 18px rgba(34, 26, 43, 0.06);
+  --s3: 0 24px 60px rgba(34, 26, 43, 0.12);
+  --shadow-brand: 0 12px 28px rgba(240, 84, 111, 0.3);
+  --shadow-iris: 0 12px 28px rgba(110, 90, 200, 0.28);
+  --shadow-hero: 0 14px 30px rgba(116, 52, 120, 0.22);
+
+  /* Spacing */
+  --xs: 4px;
+  --sm: 8px;
+  --md: 12px;
+  --lg: 16px;
+  --xl: 20px;
+  --xxl: 24px;
+  --xxxl: 32px;
+  --huge: 44px;
+  --gutter: 20px;
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 26px;
+  --r-sheet: 30px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --tap: 120ms;
+  --screen: 260ms;
+  --sheet: 320ms;
+  --reward: 420ms;
+  --ease-screen: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-coin: cubic-bezier(0.2, 0.85, 0.2, 1);
+  --ease-wheel: cubic-bezier(0.15, 0.85, 0.2, 1);
+
+  /* Type */
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --content: 1160px;
+  --prose: 720px;
+}
+
+/* Dark: the same hue at low lightness, never the light value dimmed. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #161119;
+    --surface: #211a28;
+    --sunken: #1b1521;
+    --text: #f6f1f7;
+    --text-2: #b4aab9;
+    --text-3: #847a8b;
+    --border: #2e2536;
+    --success: #5fb183;
+    --danger: #f0787a;
+    --rose-bg: #3b1b24;  --rose-fg: #ffc2ce;  --rose-muted: #d3a3ad;
+    --iris-bg: #241d3b;  --iris-fg: #cfc4ff;  --iris-muted: #a79bd6;
+    --amber-bg: #38270a; --amber-fg: #ffd79a; --amber-muted: #d9b173;
+    --success-bg: #16301f; --success-fg: #9bd9b5; --success-muted: #7fb899;
+    --picker-bg: #1c2740; --picker-fg: #bdd0f0;
+    --trivia-bg: #3a1e15; --trivia-fg: #ffc0ab;
+    --wash: linear-gradient(180deg, #2a1c2f, #161119 520px);
+    --scrim: rgba(33, 26, 40, 0.72);
+    --hairline: rgba(246, 241, 247, 0.12);
+    --s1: 0 3px 14px rgba(0, 0, 0, 0.25);
+    --s2: 0 4px 18px rgba(0, 0, 0, 0.3);
+    --s3: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #161119;
+  --surface: #211a28;
+  --sunken: #1b1521;
+  --text: #f6f1f7;
+  --text-2: #b4aab9;
+  --text-3: #847a8b;
+  --border: #2e2536;
+  --success: #5fb183;
+  --danger: #f0787a;
+  --rose-bg: #3b1b24;  --rose-fg: #ffc2ce;  --rose-muted: #d3a3ad;
+  --iris-bg: #241d3b;  --iris-fg: #cfc4ff;  --iris-muted: #a79bd6;
+  --amber-bg: #38270a; --amber-fg: #ffd79a; --amber-muted: #d9b173;
+  --success-bg: #16301f; --success-fg: #9bd9b5; --success-muted: #7fb899;
+  --picker-bg: #1c2740; --picker-fg: #bdd0f0;
+  --trivia-bg: #3a1e15; --trivia-fg: #ffc0ab;
+  --wash: linear-gradient(180deg, #2a1c2f, #161119 520px);
+  --scrim: rgba(33, 26, 40, 0.72);
+  --hairline: rgba(246, 241, 247, 0.12);
+  --s1: 0 3px 14px rgba(0, 0, 0, 0.25);
+  --s2: 0 4px 18px rgba(0, 0, 0, 0.3);
+  --s3: 0 24px 60px rgba(0, 0, 0, 0.45);
+}

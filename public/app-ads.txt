@@ -1,0 +1,7 @@
+# app-ads.txt for Me&u
+#
+# Replace pub-0000000000000000 with your AdMob publisher ID
+# (AdMob -> Settings -> Account information -> Publisher ID), then delete this comment.
+# This file must be served from the root of the domain listed as the developer
+# website on the App Store and Google Play listings.
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
