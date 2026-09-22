@@ -151,7 +151,10 @@ const sections: LegalSection[] = [
           Premium costs {site.premium.price} per {site.premium.period} (or the local equivalent shown in your app
           store). It is billed through the Apple App Store or Google Play, under their terms.
         </li>
-        <li>One active subscription unlocks Premium for both members of your hub.</li>
+        <li>
+          Premium is per person. Your subscription covers your account only — it doesn’t unlock anything for your
+          partner, who can subscribe separately.
+        </li>
         <li>
           Subscriptions renew automatically at the end of each period unless you cancel at least 24 hours before it
           ends. Manage or cancel in your App Store or Google Play account settings. Deleting the app doesn’t cancel a
@@ -166,8 +169,7 @@ const sections: LegalSection[] = [
           where required.
         </li>
         <li>
-          If the member who pays leaves the hub, Premium follows their subscription, and the hub may return to the free
-          version.
+          Premium follows you, not your hub. It stays with your account if you unpair or join a different hub.
         </li>
       </ul>
     ),

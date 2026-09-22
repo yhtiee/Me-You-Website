@@ -14,17 +14,17 @@ export const site = {
   tagline: 'Two people, one place.',
 
   /** Canonical origin, no trailing slash. Must match the store listings' developer website. */
-  url: 'https://[your-domain]',
+  url: 'https://www.meandyou.tech',
 
   /** The person or company that publishes the app — the "we" in the policies. */
-  legalName: '[Your legal name or company]',
+  legalName: 'Me&You Technologies',
   /** Postal address. Required in the privacy policy for GDPR (Art. 13). */
-  address: '[Street, city, country]',
+  address: 'Golf view estate, lemma road, Calabar, Cross River State, Nigeria',
   /** Jurisdiction whose law governs the terms. */
-  governingLaw: '[Country / state]',
+  governingLaw: 'Nigeria / Cross River State',
 
-  contactEmail: '[hello@your-domain]',
-  privacyEmail: '[privacy@your-domain]',
+  contactEmail: 'internettrap69@meandyou.tech',
+  privacyEmail: 'internettrap69@meandyou.tech',
 
   /** Date the current versions of the policies took effect. */
   policiesUpdated: '16 September 2026',
@@ -35,7 +35,7 @@ export const site = {
    */
   stores: {
     ios: { url: 'https://apps.apple.com/app/id[APP_STORE_ID]', live: false },
-    android: { url: 'https://play.google.com/store/apps/details?id=com.meyou.app', live: false },
+    android: { url: 'https://play.google.com/store/apps/details?id=tech.meandyou.app', live: false },
   },
 
   premium: {

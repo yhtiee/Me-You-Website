@@ -150,7 +150,7 @@ export function Hero() {
               <Icon name="check" size={16} /> iPhone &amp; Android
             </li>
             <li>
-              <Icon name="check" size={16} /> Premium is {site.premium.price}/{site.premium.period} for both of you
+              <Icon name="check" size={16} /> Premium is {site.premium.price}/{site.premium.period} per person
             </li>
           </ul>
         </div>

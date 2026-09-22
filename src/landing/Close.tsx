@@ -18,7 +18,7 @@ const PREMIUM = [
   'Everything in Free',
   'No ads, anywhere in the app',
   'Unlimited coach questions',
-  'One subscription covers both of you',
+  'Covers your account; your partner subscribes separately',
 ];
 
 /** YourLovePage's two-card pricing, with Lovewick's "no subscription required" stance. */
@@ -28,8 +28,11 @@ export function Pricing() {
       <div className="container">
         <div className="section-head center reveal">
           <span className="overline">Pricing</span>
-          <h2 className="title1">Free for two. One small price if you want more.</h2>
-          <p className="lead">No subscription required. Premium is optional, and one upgrade covers your whole hub.</p>
+          <h2 className="title1">Free for both. One small price if you want more.</h2>
+          <p className="lead">
+            No subscription required. Premium is optional, and it’s per person — you can subscribe without your
+            partner, or the other way round.
+          </p>
         </div>
 
         <div className="price-grid">
@@ -53,7 +56,7 @@ export function Pricing() {
           </article>
 
           <article className="price card premium reveal" style={delay(100)}>
-            <span className="price-flag">{site.premium.available ? 'For both of you' : 'Coming soon'}</span>
+            <span className="price-flag">{site.premium.available ? 'Per person' : 'Coming soon'}</span>
             <h3 className="title3">Premium</h3>
             <p className="price-amount">
               <b>{site.premium.price}</b>
@@ -87,7 +90,8 @@ const FAQ: { q: string; a: ReactNode }[] = [
     a: (
       <>
         Yes. Every core feature is free, with small ads. Premium ({site.premium.price}/{site.premium.period}) removes
-        the ads and the daily limit on coach questions, and one upgrade covers both of you.
+        the ads and the daily limit on coach questions for whoever subscribes. It’s per person, so your partner
+        keeps the free version unless they subscribe too.
       </>
     ),
   },
