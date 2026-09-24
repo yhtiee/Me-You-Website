@@ -139,6 +139,7 @@ export function Footer() {
           <h4>Legal</h4>
           <a href={routes.privacy}>Privacy policy</a>
           <a href={routes.terms}>Terms of service</a>
+          <a href={routes.childSafety}>Child safety</a>
           <a href={`${routes.privacy}#cookies`}>Cookies</a>
           <a href={`${routes.privacy}#choices`}>Ad choices</a>
         </div>

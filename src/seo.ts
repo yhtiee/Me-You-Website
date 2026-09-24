@@ -70,6 +70,17 @@ export const pages: PageSeo[] = [
     changefreq: 'monthly',
   },
   {
+    entry: 'child-safety/index',
+    path: routes.childSafety,
+    title: `Child safety standards · ${site.name}`,
+    description:
+      'Me&u’s standards against child sexual abuse and exploitation (CSAE): what is prohibited, how the app is built to prevent it, and how to report a concern.',
+    index: true,
+    breadcrumb: 'Child safety standards',
+    priority: 0.4,
+    changefreq: 'yearly',
+  },
+  {
     entry: 'delete-account/index',
     path: routes.deleteAccount,
     title: `Delete your account · ${site.name}`,

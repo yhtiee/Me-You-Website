@@ -24,6 +24,7 @@ const PAGES: Record<string, LazyExoticComponent<ComponentType>> = {
   privacy: lazy(() => import('./legal/Privacy')),
   terms: lazy(() => import('./legal/Terms')),
   support: lazy(() => import('./legal/Support')),
+  'child-safety': lazy(() => import('./legal/ChildSafety')),
   'delete-account': lazy(() => import('./legal/DeleteAccount')),
   'not-found': lazy(() => import('./NotFound')),
 };

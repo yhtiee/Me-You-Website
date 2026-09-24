@@ -126,6 +126,13 @@ export default function Support() {
             </a>
           </li>
           <li>
+            <a href={routes.childSafety}>
+              <strong>Child safety standards</strong>
+              <span>Reporting abuse of a child</span>
+              <Icon name="arrow" size={18} />
+            </a>
+          </li>
+          <li>
             <a href={routes.privacy}>
               <strong>Privacy policy</strong>
               <span>What we collect and why</span>
@@ -142,7 +149,9 @@ export default function Support() {
         </ul>
         <p className="muted small">
           Reporting abuse or a safety concern? Email {site.contactEmail} with “Safety” in the subject line and we’ll
-          prioritise it. If anyone is in immediate danger, contact local emergency services first.
+          prioritise it. For anything involving a child, see our{' '}
+          <a href={routes.childSafety}>child safety standards</a>. If anyone is in immediate danger, contact local
+          emergency services first.
         </p>
       </section>
     </LegalLayout>

@@ -85,7 +85,11 @@ const sections: LegalSection[] = [
         <p>You agree not to:</p>
         <ul>
           <li>use the service to harass, threaten, stalk, control or monitor anyone without their consent;</li>
-          <li>upload content that is illegal, sexually exploits anyone, promotes violence, or infringes someone’s rights;</li>
+          <li>
+            upload content that is illegal, sexually exploits anyone, promotes violence, or infringes someone’s
+            rights — see our <a href={routes.childSafety}>child safety standards</a> for how we handle child sexual
+            abuse and exploitation;
+          </li>
           <li>impersonate someone or create an account for another person;</li>
           <li>try to access data that isn’t yours, or get around security, rate limits or usage limits;</li>
           <li>reverse engineer, scrape, overload or disrupt the service, except where the law allows it;</li>

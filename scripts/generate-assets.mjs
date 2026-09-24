@@ -28,8 +28,12 @@ const pub = (p) => resolve(root, 'public', p);
 
 const MARK = pub('favicon.svg');
 const APP_ICON = pub('images/icon.png');
-/** The app icon's own background, so padded icons don't show a seam. */
-const ICON_BG = '#FFE6EA';
+/** The app icon's gradient, for padding around a maskable icon. */
+const ICON_BG = Buffer.from(
+  '<svg width="512" height="512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+    '<stop offset="0" stop-color="#D63C58"/><stop offset="1" stop-color="#6E5AC8"/>' +
+    '</linearGradient></defs><rect width="512" height="512" fill="url(#g)"/></svg>'
+);
 
 async function png(input, size, out) {
   await sharp(input, { density: 512 }).resize(size, size).png().toFile(out);
@@ -79,7 +83,7 @@ async function icons() {
   await png(MARK, 16, pub('favicon-16x16.png'));
 
   // iOS ignores transparency and rounds the corners itself: full-bleed, opaque.
-  await sharp(APP_ICON).resize(180, 180).flatten({ background: ICON_BG }).png().toFile(pub('apple-touch-icon.png'));
+  await sharp(APP_ICON).resize(180, 180).flatten().png().toFile(pub('apple-touch-icon.png'));
 
   await sharp(APP_ICON).resize(192, 192).png().toFile(pub('icon-192.png'));
   await sharp(APP_ICON).resize(512, 512).png().toFile(pub('icon-512.png'));
@@ -87,10 +91,7 @@ async function icons() {
   // Maskable: Android may crop to a circle, so the artwork sits inside the
   // central 80% safe zone on the icon's own background.
   const inner = await sharp(APP_ICON).resize(410, 410).png().toBuffer();
-  await sharp({ create: { width: 512, height: 512, channels: 4, background: ICON_BG } })
-    .composite([{ input: inner, gravity: 'center' }])
-    .png()
-    .toFile(pub('icon-maskable-512.png'));
+  await sharp(ICON_BG).composite([{ input: inner, gravity: 'center' }]).png().toFile(pub('icon-maskable-512.png'));
 
   console.log('icons: favicon.ico, favicon-16/32, apple-touch-icon, icon-192/512, icon-maskable-512');
 }
