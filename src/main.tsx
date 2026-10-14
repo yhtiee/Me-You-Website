@@ -10,7 +10,7 @@ import './styles/landing.css';
 import './styles/legal.css';
 
 import { StrictMode, lazy, Suspense, type ComponentType, type LazyExoticComponent } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 
 /**
  * One bundle entry for every page. Each HTML file names its page on <body>,
@@ -31,10 +31,16 @@ const PAGES: Record<string, LazyExoticComponent<ComponentType>> = {
 
 const Page = PAGES[document.body.dataset.page ?? 'home'] ?? PAGES['not-found'];
 
-createRoot(document.getElementById('root')!).render(
+const app = (
   <StrictMode>
     <Suspense fallback={null}>
       <Page />
     </Suspense>
-  </StrictMode>,
+  </StrictMode>
 );
+
+// The build prerenders every page (scripts/prerender.mjs), so in production
+// the markup is already there to hydrate. The dev server serves it empty.
+const container = document.getElementById('root')!;
+if (container.hasChildNodes()) hydrateRoot(container, app);
+else createRoot(container).render(app);

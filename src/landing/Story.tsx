@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Icon, type IconName } from '../components/Icon';
 import { PhoneComposer, PhoneDock, PhoneFrame, PhoneTabs } from '../components/Phone';
-import { useInView, usePrefersReducedMotion } from '../components/hooks';
+import { useHydrated, useInView, usePrefersReducedMotion } from '../components/hooks';
 import { delay, vars } from '../components/vars';
 
 type Bubble = { from: 'me' | 'them' | 'app'; text: string; meta?: string };
@@ -592,6 +592,7 @@ function defaultDate() {
 export function TogetherCounter() {
   const [value, setValue] = useState(defaultDate);
   const [now, setNow] = useState(() => new Date());
+  const hydrated = useHydrated();
 
   useEffect(() => {
     const t = window.setInterval(() => setNow(new Date()), 1000);
@@ -627,8 +628,9 @@ export function TogetherCounter() {
             </label>
           </div>
 
+          {/* Ticks every second, so it can't match the prerendered HTML: drawn in the browser only. */}
           <div className="counter-out" aria-live="polite">
-            {parts ? (
+            {!hydrated ? null : parts ? (
               <>
                 <p className="counter-big">
                   {parts.years > 0 ? <span>{plural(parts.years, 'year')}</span> : null}

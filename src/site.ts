@@ -12,6 +12,8 @@
 export const site = {
   name: 'Me&u',
   tagline: 'Two people, one place.',
+  /** The app's title on its store listing. Store reviewers match policy pages against it. */
+  storeName: 'Me&u: Couples Check-in & Play',
 
   /** Canonical origin, no trailing slash. Must match the store listings' developer website. */
   url: 'https://www.meandyou.tech',

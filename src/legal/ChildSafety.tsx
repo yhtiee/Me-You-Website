@@ -20,7 +20,8 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          {site.name} is published by {site.legalName}. We have zero tolerance for child sexual abuse and
+          {site.name} (listed on Google Play as “{site.storeName}”) is published by {site.legalName}. We have zero
+          tolerance for child sexual abuse and
           exploitation (CSAE), and for child sexual abuse material (CSAM). There is no version of our service in
           which this content or behaviour is acceptable.
         </p>
@@ -128,9 +129,9 @@ const sections: LegalSection[] = [
             </strong>
             <ul>
               <li>
-                Open <b>You → Settings → Help &amp; support</b>, which reaches the same team.
+                Open <b>You → Settings → Report a safety concern</b>, describe what happened and tap <b>Send report</b>.
               </li>
-              <li>Reports from inside the app are treated exactly the same way.</li>
+              <li>The report goes straight to our safety team without leaving the app, and is treated exactly the same way.</li>
             </ul>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 
 /**
  * Adds `is-in` to every `.reveal` element once it scrolls into view. One
@@ -27,17 +27,32 @@ export function useRevealOnScroll() {
   }, []);
 }
 
-export function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+const noSubscribe = () => () => {};
+
+/** False in the prerendered HTML and while hydrating, true from then on. */
+export function useHydrated() {
+  return useSyncExternalStore(
+    noSubscribe,
+    () => true,
+    () => false,
   );
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const on = () => setReduced(mq.matches);
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
-  }, []);
-  return reduced;
+}
+
+const REDUCED_MOTION ='(prefers-reduced-motion: reduce)';
+
+function subscribeReducedMotion(onChange: () => void) {
+  const mq = window.matchMedia(REDUCED_MOTION);
+  mq.addEventListener('change', onChange);
+  return () => mq.removeEventListener('change', onChange);
+}
+
+/** False on the server (and while hydrating) so the prerendered HTML matches. */
+export function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    subscribeReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION).matches,
+    () => false,
+  );
 }
 
 /**
@@ -47,8 +62,9 @@ export function usePrefersReducedMotion() {
  */
 export function useInView<T extends Element>({ once = false } = {}) {
   const ref = useRef<T>(null);
-  // No observer (very old browsers): treat everything as visible.
-  const [inView, setInView] = useState(() => typeof IntersectionObserver === 'undefined');
+  // Starts false everywhere, server included, so prerendered HTML matches the
+  // first client render. Every browser that runs React 19 has the observer.
+  const [inView, setInView] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof IntersectionObserver === 'undefined') return;
@@ -64,33 +80,41 @@ export function useInView<T extends Element>({ once = false } = {}) {
 
 type Theme = 'light' | 'dark';
 
-function readStoredTheme(): Theme | null {
-  try {
-    const v = localStorage.getItem('meyou-theme');
-    return v === 'light' || v === 'dark' ? v : null;
-  } catch {
-    return null;
-  }
+const themeListeners = new Set<() => void>();
+
+/** A saved choice is on <html> already (the inline <head> script puts it there). */
+function currentTheme(): Theme {
+  const set = document.documentElement.dataset.theme;
+  if (set === 'light' || set === 'dark') return set;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function subscribeTheme(onChange: () => void) {
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  themeListeners.add(onChange);
+  mq.addEventListener('change', onChange);
+  return () => {
+    themeListeners.delete(onChange);
+    mq.removeEventListener('change', onChange);
+  };
 }
 
 /**
  * System theme by default; an explicit choice is remembered per browser. The
  * attribute is also set by an inline script in each page's <head> so there is
  * no flash of the wrong theme before React loads.
+ *
+ * Pages are prerendered, and the server can't know the visitor's theme, so the
+ * first render says 'light' to match the HTML and React swaps in the real value
+ * straight after hydrating.
  */
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'light';
-    return (
-      readStoredTheme() ??
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-    );
-  });
+  const theme = useSyncExternalStore(subscribeTheme, currentTheme, (): Theme => 'light');
 
   const toggle = () => {
     const next: Theme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
     document.documentElement.dataset.theme = next;
+    themeListeners.forEach((notify) => notify());
     try {
       localStorage.setItem('meyou-theme', next);
     } catch {
