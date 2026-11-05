@@ -10,6 +10,8 @@
  *                             so the site matches the app on a phone
  *   scripts/og-image.html     the 1200×630 link preview, rendered in Chrome so
  *                             it uses the site's own fonts
+ *   scripts/email-banner.html the 1120×320 banner on every app email, linked
+ *                             from the app's Edge Functions
  *
  * The outputs are committed; this only needs re-running when a source changes.
  * Chrome is found at the usual install path, or set CHROME_PATH.
@@ -108,26 +110,29 @@ function findChrome() {
   return candidates.find((p) => existsSync(p));
 }
 
-async function ogImage() {
+/** Screenshots an HTML source in `scripts/` at its exact size. */
+async function render(source, width, height, out) {
   const executablePath = findChrome();
   if (!executablePath) {
-    console.warn('og-image: skipped — no Chrome found. Set CHROME_PATH.');
+    console.warn(`${source}: skipped — no Chrome found. Set CHROME_PATH.`);
     return;
   }
   const browser = await puppeteer.launch({ executablePath, headless: true, args: ['--allow-file-access-from-files'] });
   try {
     const page = await browser.newPage();
-    await page.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
-    await page.goto(pathToFileURL(resolve(root, 'scripts/og-image.html')).href, { waitUntil: 'networkidle0' });
+    await page.setViewport({ width, height, deviceScaleFactor: 1 });
+    await page.goto(pathToFileURL(resolve(root, 'scripts', source)).href, { waitUntil: 'networkidle0' });
     await page.evaluate(() => document.fonts.ready);
     const shot = await page.screenshot({ type: 'png' });
-    // Re-encoded: Chrome's PNGs are large, and link unfurlers have size limits.
-    await sharp(shot).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(pub('og-image.png'));
-    console.log('og-image: public/og-image.png');
+    // Re-encoded: Chrome's PNGs are large, and link unfurlers and mail clients
+    // both have size limits.
+    await sharp(shot).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(out);
+    console.log(`${source}: ${out}`);
   } finally {
     await browser.close();
   }
 }
 
 await icons();
-await ogImage();
+await render('og-image.html', 1200, 630, pub('og-image.png'));
+await render('email-banner.html', 1120, 320, pub('images/email-banner.png'));
