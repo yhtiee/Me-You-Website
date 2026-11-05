@@ -25,14 +25,14 @@ export const site = {
   /** Jurisdiction whose law governs the terms. */
   governingLaw: 'Nigeria / Cross River State',
 
-  contactEmail: 'internettrap69@meandyou.tech',
+  contactEmail: 'philipelias16@gmail.com',
   /**
    * Where child safety reports go. Google Play requires a contact who can
    * answer for the app's CSAE practices, and asks for that person by name in
    * the Console. Point this at a dedicated alias if you make one.
    */
-  safetyEmail: 'internettrap69@meandyou.tech',
-  privacyEmail: 'internettrap69@meandyou.tech',
+  safetyEmail: 'philipelias16@gmail.com',
+  privacyEmail: 'philipelias16@gmail.com',
 
   /** Date the current versions of the policies took effect. */
   policiesUpdated: '16 September 2026',
